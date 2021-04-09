@@ -11,21 +11,28 @@ namespace Diary.Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly DiaryContext _context;
+        private readonly ILogger<WeatherForecastController> _logger;
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, DiaryContext context)
+        {
+            _context = context;
+            _logger = logger;
+        }
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            var entry = new Diary() { Title = "First Entry", Content = "Dear Diary", Created = DateTime.Now };
+
+            _context.Diaries.Add(entry);
+            _context.SaveChanges();
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -34,6 +41,16 @@ namespace Diary.Api.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public void Post()
+        {
+            var entry = new Diary() { Title = "First Entry", Content = "Dear Diary", Created = DateTime.Now };
+
+            _context.Diaries.Add(entry);
+            _context.SaveChanges();
+
         }
     }
 }
