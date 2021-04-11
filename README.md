@@ -9,3 +9,8 @@ To Run the Database Container:
 To Run the Web API:
 -  cd src/Diary.Api/
 -  dotnet run
+
+TODO:
+- Add API Test
+- Add Angular App
+
