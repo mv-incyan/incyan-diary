@@ -37,7 +37,7 @@ namespace Diary.Api.DiaryModule
 
         public List<DiaryDto> GetAll()
         {
-            var models = _dataManager.GetAll().ToList();
+            var models = _dataManager.GetAll();
             return _mapper.Map<List<DiaryDto>>(models);
         }
 

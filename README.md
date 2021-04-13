@@ -11,6 +11,5 @@ To Run the Web API:
 -  dotnet run
 
 TODO:
-- Add API Test
 - Add Angular App
 
